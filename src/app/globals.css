@@ -1,38 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0b0907;
-  --surface: #14110d;
-  --foreground: #f3ece1;
-  --muted: #a89f92;
-  --accent: #c9a063;
-  --accent-soft: #e4c999;
+  /* פלטה מתוך הברושור של TRIO */
+  --espresso: #1d1511;
+  --brown: #2d211b;
+  --brown-2: #3a2b23;
+  --cream: #faf5ee;
+  --cream-2: #f1e9de;
+  --bronze: #a9805a;
+  --bronze-deep: #7a5636;
+  --champagne: #e6d5b5;
+  --ink-muted: #6f5f53;
+  --light-muted: #b8aa99;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-surface: var(--surface);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
+  --color-espresso: var(--espresso);
+  --color-brown: var(--brown);
+  --color-brown-2: var(--brown-2);
+  --color-cream: var(--cream);
+  --color-cream-2: var(--cream-2);
+  --color-bronze: var(--bronze);
+  --color-bronze-deep: var(--bronze-deep);
+  --color-champagne: var(--champagne);
+  --color-ink-muted: var(--ink-muted);
+  --color-light-muted: var(--light-muted);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
+  --font-latin: var(--font-latin);
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--espresso);
+  color: var(--cream);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent-soft);
+  outline: 2px solid var(--champagne);
   outline-offset: 3px;
+}
+.on-cream :focus-visible {
+  outline-color: var(--bronze);
 }
 
 .skip-link {
@@ -40,13 +54,47 @@ body {
   inset-inline-start: 1rem;
   top: -4rem;
   z-index: 100;
-  background: var(--accent);
-  color: #0b0907;
+  background: var(--champagne);
+  color: var(--espresso);
   padding: 0.6rem 1rem;
   border-radius: 0.5rem;
 }
 .skip-link:focus {
   top: 1rem;
+}
+
+/* מסגרת דקה בסגנון הברושור */
+.frame {
+  position: relative;
+}
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--bronze) 55%, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.eyebrow {
+  font-family: var(--font-latin), serif;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+/* חשיפה בגלילה */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
 }
 
 @keyframes marquee {
@@ -61,11 +109,30 @@ body {
   animation-play-state: paused;
 }
 
+@keyframes drift {
+  0%,
+  100% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate3d(-1.5%, -1%, 0);
+  }
+}
+.drift {
+  animation: drift 24s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .marquee-track {
+  .marquee-track,
+  .drift {
     animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

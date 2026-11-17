@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TRIO BAR
 
-## Getting Started
+אתר תדמית ולידים לשירותי בר קוקטיילים לאירועים. Next.js (App Router) + TypeScript + Tailwind, עברית RTL.
 
-First, run the development server:
+## פיתוח
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build   # בדיקת בילד מלא
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+כל התוכן (טלפון, חבילות, תפריט, שאלות נפוצות) נמצא ב-`src/content/site.ts`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## פריסה ל-Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. ב-[vercel.com/new](https://vercel.com/new) בוחרים **Import Git Repository** ומחברים את `nurielchaimi/TRIO`.
+2. מגדירים Production Branch (הענף שממנו מפרסמים, למשל `main`). ה-Framework מזוהה אוטומטית כ-Next.js, אין צורך בהגדרות בילד.
+3. **Settings → Domains**: מוסיפים את הדומיין ומעדכנים ב-DNS לפי ההוראות של Vercel.
+4. **Settings → Environment Variables**: מוסיפים `NEXT_PUBLIC_SITE_URL` עם הדומיין הסופי (ראו `.env.example`), ומפעילים Redeploy.
+5. **Settings → Speed Insights**: מפעילים (חינם בחבילה הבסיסית).
 
-## Learn More
+עד שמוגדר `NEXT_PUBLIC_SITE_URL` האתר נחסם לאינדוקס (`noindex` ו-`robots.txt` חוסם הכול), כדי שכתובת `*.vercel.app` לא תופיע בגוגל. אחרי שהוגדר, האתר נפתח לאינדוקס, ה-sitemap וה-canonical מצביעים על הדומיין.
 
-To learn more about Next.js, take a look at the following resources:
+## אחרי העלייה לאוויר
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- לאמת את הדומיין ב-Google Search Console ולהגיש `/sitemap.xml`.
+- לוודא ב-[Rich Results Test](https://search.google.com/test/rich-results) שסכמת העסק והשאלות הנפוצות תקינות.

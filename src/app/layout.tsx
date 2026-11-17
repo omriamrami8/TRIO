@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Frank_Ruhl_Libre, Heebo } from "next/font/google";
 import "./globals.css";
 import { CONTACT } from "@/content/site";
+import { IS_LIVE, SITE_URL } from "@/lib/site";
 
 const display = Frank_Ruhl_Libre({
   variable: "--font-display",
@@ -15,7 +16,6 @@ const latin = Cormorant_Garamond({
   weight: ["400", "500", "600"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -41,6 +41,7 @@ export const metadata: Metadata = {
     images: ["/images/logo-full.png"],
   },
   alternates: { canonical: "/" },
+  robots: IS_LIVE ? undefined : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
